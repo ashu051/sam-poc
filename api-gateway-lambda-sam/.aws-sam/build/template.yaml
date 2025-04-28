@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Dummy API Gateway with 2 Lambda functions
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: python3.9
+    Architectures:
+    - x86_64
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: HelloWorldFunction
+      Handler: app.lambda_handler
+      Events:
+        HelloAPI:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+    Metadata:
+      SamResourceId: HelloWorldFunction
+  GoodbyeWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GoodbyeWorldFunction
+      Handler: app.lambda_handler
+      Events:
+        GoodbyeAPI:
+          Type: Api
+          Properties:
+            Path: /goodbye
+            Method: get
+    Metadata:
+      SamResourceId: GoodbyeWorldFunction
